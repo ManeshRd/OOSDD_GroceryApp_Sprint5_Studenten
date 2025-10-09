@@ -41,19 +41,7 @@ namespace Grocery.App.ViewModels
                 ProductCategories.Add(category);
         }
 
-        /*private void LoadProductsForCategory(int categoryId)
-        {
-            CategoryProducts.Clear();
-            foreach (Product p in _productService.GetAll())
-                if (p.ProductCategoryId == categoryId && p.Stock > 0 && (searchText == "" || p.Name.ToLower().Contains(searchText.ToLower())))
-                    CategoryProducts.Add(p);
-        }*/
-
-        /*partial void OnProductCategoryChanged(ProductCategory value)
-        {
-            if (value != null)
-                LoadProductsForCategory(value.Id);
-        }*/
+        
 
         [RelayCommand]
         public async Task ChangeColor()
@@ -100,14 +88,7 @@ namespace Grocery.App.ViewModels
             }
         }
 
-        /*[RelayCommand]
-        public void PerformSearch(string searchText)
-        {
-            this.searchText = searchText;
-            if (ProductCategory != null)
-                LoadProductsForCategory(ProductCategory.Id);
-        }*/
-
+        
         [RelayCommand]
         public async Task UpdateCategory(ProductCategory category)
         {
