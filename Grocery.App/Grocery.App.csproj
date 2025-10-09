@@ -85,6 +85,15 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <Compile Update="Views\CategoriesView.xaml.cs">
+	    <DependentUpon>CategoriesView.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Views\ProductCategoryView.xaml.cs">
+	    <DependentUpon>ProductCategoryView.xaml</DependentUpon>
+	  </Compile>
+	</ItemGroup>
+
+	<ItemGroup>
 	  <MauiXaml Update="Views\BestSellingProductsView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
@@ -94,7 +103,13 @@
 	  <MauiXaml Update="Views\ChangeColorView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	  <MauiXaml Update="Views\ProductCategoryView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Views\GroceryListItemsView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\CategoriesView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Views\GroceryListsView.xaml">
