@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:m="clr-namespace:Grocery.Core.Models;assembly=Grocery.Core"
+             xmlns:vm="clr-namespace:Grocery.App.ViewModels"
+             x:Class="Grocery.App.Views.ProductCategoryView"
+             x:DataType="vm:ProductCategoryViewModel"
+             Title="Productcategorieën">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Wijzig kleur" Command="{Binding ChangeColorCommand}" IconImageSource="{FontImage Glyph='&#xf30c;', Color=Black, Size=22}" />
+        <ToolbarItem Text="Deel categorieën" Command="{Binding ShareCategoriesCommand}" IconImageSource="{FontImage Glyph='&#xf1e0;', Color=Black, Size=22}" />
+    </ContentPage.ToolbarItems>
+
+    <Shell.TitleView>
+        <Grid>
+            <Label Text="{Binding ProductCategory.Name, FallbackValue='Categorieën'}" FontSize="Large" HorizontalOptions="Center" VerticalOptions="Center" />
+        </Grid>
+    </Shell.TitleView>
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="4*"/>
+            <ColumnDefinition Width="2*"/>
+        </Grid.ColumnDefinitions>
+
+        <!-- Left side: Product Categories List -->
+        <Border Grid.Column="0" Stroke="#C49B33" StrokeThickness="4" Padding="10" Margin="10" HorizontalOptions="Center">
+            <StackLayout>
+                <Label Text="Productcategorieën" FontSize="Title" Margin="0,0,0,10" HorizontalOptions="Center"/>
+
+                <CollectionView ItemsSource="{Binding ProductCategories}" Margin="20" HorizontalOptions="Center" EmptyView="Er zijn nog geen categorieën. Voeg eerst een categorie toe!">
+                    <CollectionView.ItemsLayout>
+                        <LinearItemsLayout Orientation="Vertical" ItemSpacing="10" />
+                    </CollectionView.ItemsLayout>
+
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate x:DataType="m:ProductCategory">
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+
+                <!-- Add New Category Section -->
+                <Border Stroke="#C49B33" StrokeThickness="2" Padding="10" Margin="20,10,20,0" BackgroundColor="#FFF9E6">
+                    <StackLayout>
+                        <Label Text="Nieuwe categorie toevoegen" FontSize="Medium" Margin="0,0,0,5"/>
+                        <Entry x:Name="NewCategoryEntry" Placeholder="Categorienaam..." BackgroundColor="White"/>
+                        <Button Text="Categorie toevoegen" 
+                                Command="{Binding AddCategoryCommand}"
+                                CommandParameter="{Binding Source={x:Reference NewCategoryEntry}, Path=Text}"
+                                BackgroundColor="#C49B33"
+                                TextColor="White"
+                                Margin="0,5,0,0"/>
+                    </StackLayout>
+                </Border>
+            </StackLayout>
+        </Border>
+
+        <!-- Right side: Products in Selected Category -->
+        <Border Grid.Column="1" Stroke="#C49B33" StrokeThickness="4" Padding="10" Margin="10" HorizontalOptions="Center">
+            <StackLayout>
+                <Label Text="Producten in categorie" FontSize="Title" Margin="0,0,0,10" HorizontalOptions="Center"/>
+
+                <!-- Search Bar -->
+                <SearchBar Placeholder="Zoek producten..." 
+                          SearchCommandParameter="{Binding Text, Source={RelativeSource Self}}"
+                          Margin="0,0,0,10"/>
+
+                <CollectionView ItemsSource="{Binding CategoryProducts}" EmptyView="Selecteer een categorie of zoek producten">
+                    <CollectionView.ItemsLayout>
+                        <LinearItemsLayout Orientation="Vertical" ItemSpacing="10" />
+                    </CollectionView.ItemsLayout>
+
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate x:DataType="m:Product">
+                            <Border Stroke="#C49B33" StrokeThickness="2" Padding="10" BackgroundColor="White">
+                                <Grid RowDefinitions="Auto,Auto,Auto" ColumnDefinitions="*,Auto">
+                                    <Label Grid.Row="0" Grid.Column="0" Text="{Binding Name}" FontSize="Medium" FontAttributes="Bold"/>
+                                    <Label Grid.Row="2" Grid.Column="0" Text="{Binding Stock, StringFormat='Voorraad: {0}'}" FontSize="Small" TextColor="DarkGreen"/>
+                                </Grid>
+                            </Border>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </StackLayout>
+        </Border>
+    </Grid>
+</ContentPage>
